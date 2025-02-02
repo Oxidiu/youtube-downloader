@@ -4,7 +4,7 @@ setlocal
 set "FFMPEG_PATH=%~dp0ffmpeg"
 set "PATH=%FFMPEG_PATH%;%PATH%"
 
-youtube-dl.exe --geo-bypass --yes-playlist --abort-on-unavailable-fragment --newline --write-thumbnail --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list.txt" --output "downloads\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+youtube-dl.exe --geo-bypass --yes-playlist --abort-on-unavailable-fragment --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list.txt" --output "downloads\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
 @REM --geo-bypass                          Bypass geographic restriction via faking X-Forwarded-For HTTP header
 @REM --yes-playlist                        Download the playlist, if the URL refers to a video and a playlist.
