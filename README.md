@@ -1,6 +1,6 @@
 # Youtube Downloader
 
-Este simplu de folosit, doar pui url-urile in download_list.txt daca sunt clipuri singure, sau in download_list_playlists.txt daca sunt playlisturi.
+Este simplu de folosit, doar pui url-urile in download_list.txt daca sunt clipuri singure, sau in download_list_playlists.txt daca sunt playlisturi. Atentie, gasesti fisierele astea cu .example la final, doar redenumeste-le si le poti folosi.
 
 Dupa aceea, rulezi download_mp3.bat respectiv download_mp3_playlist.bat in functie de ce ai de descarcat.
 
