@@ -19,3 +19,7 @@ youtube-dl.exe --geo-bypass --yes-playlist --abort-on-unavailable-fragment --add
 @REM -a, --batch-file FILE                 File containing URLs to download ('-' for stdin), one URL per line. Lines starting with '#', ';' or ']' are considered as comments and ignored. Use only video ID in file name
 @REM --add-metadata                        Write metadata to the video file
 @REM --embed-thumbnail                    Embed thumbnail in the audio as cover
+
+echo.
+echo Download complete. Press any key to exit...
+pause >nul

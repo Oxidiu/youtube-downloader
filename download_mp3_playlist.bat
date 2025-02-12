@@ -1,10 +1,12 @@
 @echo off
 setlocal
 
-set "FFMPEG_PATH=%~dp0ffmpeg"
+set "FFMPEG_PATH=%~dp0ffmpeg\bin"
 set "PATH=%FFMPEG_PATH%;%PATH%"
 
-youtube-dl.exe --geo-bypass --yes-playlist --abort-on-unavailable-fragment --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+yt-dlp --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+
+@REM yt-dlp -f bestaudio --extract-audio --audio-format mp3 -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
 @REM --geo-bypass                          Bypass geographic restriction via faking X-Forwarded-For HTTP header
 @REM --yes-playlist                        Download the playlist, if the URL refers to a video and a playlist.
@@ -19,3 +21,7 @@ youtube-dl.exe --geo-bypass --yes-playlist --abort-on-unavailable-fragment --add
 @REM -a, --batch-file FILE                 File containing URLs to download ('-' for stdin), one URL per line. Lines starting with '#', ';' or ']' are considered as comments and ignored. Use only video ID in file name
 @REM --add-metadata                        Write metadata to the video file
 @REM --embed-thumbnail                    Embed thumbnail in the audio as cover
+
+echo.
+echo Download complete. Press any key to exit...
+pause >nul
