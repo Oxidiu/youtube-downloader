@@ -4,10 +4,11 @@ setlocal
 set "FFMPEG_PATH=%~dp0ffmpeg\bin"
 set "PATH=%FFMPEG_PATH%;%PATH%"
 
-yt-dlp --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+youtube-dl.exe -i --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
 @REM yt-dlp -f bestaudio --extract-audio --audio-format mp3 -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
+@REM -i or --ignore-errors: Skips unavailable videos instead of stopping.
 @REM --geo-bypass                          Bypass geographic restriction via faking X-Forwarded-For HTTP header
 @REM --yes-playlist                        Download the playlist, if the URL refers to a video and a playlist.
 @REM --abort-on-unavailable-fragment       Abort downloading when some fragment is not available
