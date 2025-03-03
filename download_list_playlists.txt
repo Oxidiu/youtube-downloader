@@ -1,7 +1,0 @@
-# Aici pui url-urile de la melodiile pe care vrei sa le descarci. linile care incep cu # nu se iau in considerare.
-https://www.youtube.com/watch?v=lbk1gxVju0g&list=PL0f8La1w1aDkI1qvCScusni3akEOCDRqw
-https://www.youtube.com/watch?v=gm6TciWKPdg&list=PLG2nBPd9JrKVEEaMuO3Z-PXIFur4rL78w&pp=gAQB\
-https://www.youtube.com/watch?v=T4Hnd77tlDE&list=PLICnPXGq5ZmKVOlc1pdecZTryA9TjvO6H
-https://www.youtube.com/watch?v=lbk1gxVju0g&list=PL0f8La1w1aDkI1qvCScusni3akEOCDRqw
-https://www.youtube.com/watch?v=3-isjGJTiNs&list=PLPxpkZKNRgQEZZVGMi4etBafbSEWycHHo
-https://www.youtube.com/watch?v=5cPFYg_q45s&list=PLG2nBPd9JrKVHX8h7g1SvjGeC08c1QFEp&pp=gAQB
