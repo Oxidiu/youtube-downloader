@@ -1,6 +1,10 @@
 archive.txt
+archive.mp4.txt
 download_list.txt
 download.txt
-download_list_playlists.txt
-download_playlists.txt
+download_mp3.txt
+download_mp4.txt
+download_mp4_list.txt
+download_mp3_list.txt
+download_list.txt
 downloads/*
