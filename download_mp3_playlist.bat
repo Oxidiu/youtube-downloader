@@ -4,7 +4,7 @@ setlocal
 set "FFMPEG_PATH=%~dp0ffmpeg\bin"
 set "PATH=%FFMPEG_PATH%;%PATH%"
 
-.\yt-dlp.exe -i -U --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -f bestaudio -x --audio-format mp3 -w -c -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+.\yt-dlp.exe -i -U --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -f bestaudio -x --audio-format mp3 -w -c -a "download_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
 @REM yt-dlp -f bestaudio --extract-audio --audio-format mp3 -a "download_list_playlists.txt" --output "downloads\%%(playlist_title)s\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
