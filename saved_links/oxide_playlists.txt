@@ -1,0 +1,29 @@
+# Aici pui url-urile de la melodiile pe care vrei sa le descarci. linile care incep cu # nu se iau in considerare.
+
+# Chillstep
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKW5fn-kLncI6qXyHwdmMDeV
+
+# Dance
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKWZX-_lVwAw3kWCJagr3jRx
+
+# Techno Selectii
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKW81lvsMFgdzvhQq14cZJVf
+
+# Manele
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKV5KdXZppvP6-dKnBTmJuxI
+
+# Music Selectii
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKXsinp2U_L3nVcmM16cqV8b
+
+# Oriental Music
+https://www.youtube.com/playlist?list=PLPxpkZKNRgQHX_qp3Qu1aj228O71QQChU
+
+# Spirituality
+https://www.youtube.com/playlist?list=PLG2nBPd9JrKVHX8h7g1SvjGeC08c1QFEp
+
+# Trap
+https://www.youtube.com/playlist?list=PLPxpkZKNRgQFrcSmPpf-Rh0nnwCbqAT61
+
+# Hindi
+https://www.youtube.com/playlist?list=PLICnPXGq5ZmKVOlc1pdecZTryA9TjvO6H
+

@@ -1,74 +1,102 @@
 import os
 import subprocess
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog, filedialog
 
 # Get the directory where the script is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
 yt_dlp_path = os.path.join(script_dir, "yt-dlp.exe")
-download_mp3_txt_path = os.path.join(script_dir, "download_mp3.txt")
-download_mp4_txt_path = os.path.join(script_dir, "download_mp4.txt")
-download_mp4_list_txt_path = os.path.join(script_dir, "download_mp4_list.txt")
-download_mp3_list_txt_path = os.path.join(script_dir, "download_mp3_list.txt")
+download_txt_path = os.path.join(script_dir, "download.txt")
+saved_links_dir = os.path.join(script_dir, "saved_links")
+
+# Ensure the saved_links directory exists
+os.makedirs(saved_links_dir, exist_ok=True)
+
+# Variable to store the name of the last loaded file
+last_loaded_file = None
 
 # Function to run a command in the shell
 def run_script(command):
     try:
-        subprocess.run(command, shell=True, check=True, text=True)
+        subprocess.run(command, check=True, text=True)
         messagebox.showinfo("Success", "Download Complete!")
     except subprocess.CalledProcessError:
         messagebox.showerror("Error", "Download failed!")
 
-# Function to download MP3 files using yt-dlp
-def download_mp3():
-    command = rf'"{yt_dlp_path}" -U -i --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "{download_mp3_txt_path}" --output "{script_dir}\downloads\%(title)s.%(ext)s" --download-archive "{script_dir}\archive.txt"'
-    run_script(command)
+# Function to download files using yt-dlp
+def download_files():
+    if not os.path.exists(download_txt_path):
+        with open(download_txt_path, 'w') as file:
+            pass
 
-# Function to download MP4 files using yt-dlp
-def download_mp4():
-    command = rf'"{yt_dlp_path}" -U --geo-bypass -i -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" -w -c -a "{download_mp4_txt_path}" --output "{script_dir}\downloads\%(title)s.%(ext)s" --download-archive "{script_dir}\archive.mp4.txt"'
-    run_script(command)
+    with open(download_txt_path, 'r') as file:
+        links = file.readlines()
 
-# Function to download MP3 playlists using yt-dlp
-def download_mp3_list():
-    command = rf'"{yt_dlp_path}" -i -U --geo-bypass --add-metadata --embed-thumbnail -f bestaudio -x --audio-format mp3 -w -c -a "{download_mp3_list_txt_path}" --output "{script_dir}\downloads\%(title)s.%(ext)s" --download-archive "{script_dir}\archive.txt"'
-    run_script(command)
+    for link in links:
+        link = link.strip()
+        if not link:
+            continue
 
-def download_mp4_list():
-    command = rf'"{yt_dlp_path}" -U --geo-bypass -i -f --yes-playlist"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]" -w -c -a "{download_mp4_list_txt_path}" --output "{script_dir}\downloads\%(title)s.%(ext)s" --download-archive "{script_dir}\archive.mp4.txt"'
-    run_script(command)
+        command = [yt_dlp_path, '-U', '--geo-bypass', '-i', '-w', '-c', link]
+
+        if playlist_var.get() and "list=" in link:
+            command.append('--yes-playlist')
+            output_template = f"{script_dir}\\downloads\\%(playlist_title)s\\%(title)s.%(ext)s"
+        else:
+            command.append('--no-playlist')
+            output_template = f"{script_dir}\\downloads\\%(title)s.%(ext)s"
+
+        if mp4_var.get():
+            command.extend(['-f', 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]', '--output', output_template])
+            if no_download_again_var.get():
+                command.extend(['--download-archive', f"{script_dir}\\archive.mp4.txt"])
+        else:
+            command.extend(['--add-metadata', '--embed-thumbnail', '-x', '--audio-format', 'mp3', '--output', output_template])
+            if no_download_again_var.get():
+                command.extend(['--download-archive', f"{script_dir}\\archive.txt"])
+
+        run_script(command)
 
 # Function to load the content of download.txt into the text widget
 def load_download_txt():
-    if playlist_var.get() and mp4_var.get():
-        file_path = download_mp4_list_txt_path
-    elif playlist_var.get():
-        file_path = download_mp3_list_txt_path
-    elif mp4_var.get():
-        file_path = download_mp4_txt_path
-    else:
-        file_path = download_mp3_txt_path
-
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as file:
+    if os.path.exists(download_txt_path):
+        with open(download_txt_path, 'r') as file:
             download_txt.delete(1.0, tk.END)
             download_txt.insert(tk.END, file.read())
     else:
+        with open(download_txt_path, 'w') as file:
+            pass
         download_txt.delete(1.0, tk.END)
 
 # Function to save the content of the text widget into download.txt
 def save_download_txt(event=None):
-    if playlist_var.get() and mp4_var.get():
-        file_path = download_mp4_list_txt_path
-    elif playlist_var.get():
-        file_path = download_mp3_list_txt_path
-    elif mp4_var.get():
-        file_path = download_mp4_txt_path
-    else:
-        file_path = download_mp3_txt_path
-
-    with open(file_path, 'w') as file:
+    with open(download_txt_path, 'w') as file:
         file.write(download_txt.get(1.0, tk.END))
+
+# Function to save the content of the text widget into a named file in saved_links
+def save_links():
+    global last_loaded_file
+    name = simpledialog.askstring("Save links", "Enter the name for the list:", initialvalue=last_loaded_file)
+    if name:
+        save_path = os.path.join(saved_links_dir, f"{name}.txt")
+        with open(save_path, 'w') as file:
+            file.write(download_txt.get(1.0, tk.END))
+        messagebox.showinfo("Success", f"Links saved as {name}.txt")
+        last_loaded_file = name
+
+# Function to load a saved links file
+def load_links():
+    global last_loaded_file
+    file_path = filedialog.askopenfilename(initialdir=saved_links_dir, title="Select file", filetypes=(("Text files", "*.txt"), ("All files", "*.*")))
+    if file_path:
+        with open(file_path, 'r') as file:
+            download_txt.delete(1.0, tk.END)
+            download_txt.insert(tk.END, file.read())
+        last_loaded_file = os.path.splitext(os.path.basename(file_path))[0]
+
+# Function to determine which download function to call
+def download():
+    download_files()
 
 # Create the GUI
 root = tk.Tk()
@@ -77,10 +105,8 @@ root.title("YouTube Downloader")
 # Add a label for the options
 tk.Label(root, text="Choose an option:", font=("Arial", 14)).pack(pady=10)
 
-# Add buttons for downloading MP3, MP4, and MP3 playlists
-tk.Button(root, text="Download MP3", command=download_mp3, width=20, height=2).pack(pady=5)
-tk.Button(root, text="Download MP4", command=download_mp4, width=20, height=2).pack(pady=5)
-tk.Button(root, text="Download MP3 Playlist", command=download_mp3_list, width=20, height=2).pack(pady=5)
+# Add a single button for downloading
+tk.Button(root, text="Download", command=download, width=20, height=2).pack(pady=5)
 
 # Add a label and text widget for editing download.txt
 tk.Label(root, text="Edit download.txt:", font=("Arial", 14)).pack(pady=10)
@@ -95,6 +121,17 @@ playlist_checkbox.pack(pady=5)
 mp4_var = tk.BooleanVar()
 mp4_checkbox = tk.Checkbutton(root, text="MP4", variable=mp4_var, command=load_download_txt)
 mp4_checkbox.pack(pady=5)
+
+# Add a checkbox for "Do not download again"
+no_download_again_var = tk.BooleanVar()
+no_download_again_checkbox = tk.Checkbutton(root, text="Do not download again", variable=no_download_again_var, command=load_download_txt)
+no_download_again_checkbox.pack(pady=5)
+
+# Add a button to save links
+tk.Button(root, text="Save links", command=save_links, width=20, height=2).pack(pady=5)
+
+# Add a button to load links
+tk.Button(root, text="Load links", command=load_links, width=20, height=2).pack(pady=5)
 
 # Load the initial content of download.txt
 load_download_txt()
