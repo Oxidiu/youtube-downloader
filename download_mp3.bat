@@ -4,7 +4,7 @@ setlocal
 set "FFMPEG_PATH=%~dp0ffmpeg"
 set "PATH=%FFMPEG_PATH%;%PATH%"
 
-.\yt-dlp.exe -U -i --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download.txt" --output "downloads\%%(title)s.%%(ext)s" --download-archive "archive.txt"
+.\yt-dlp.exe -U -i --geo-bypass --yes-playlist --add-metadata --embed-thumbnail -x --audio-format mp3 -w -c -a "download_mp3.txt" --output "downloads\%%(title)s.%%(ext)s" --download-archive "archive.txt"
 
 @REM -i or --ignore-errors: Skips unavailable videos instead of stopping.
 @REM --geo-bypass                          Bypass geographic restriction via faking X-Forwarded-For HTTP header
